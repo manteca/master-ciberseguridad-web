@@ -2,19 +2,21 @@ package controllers;
 
 import models.Constants;
 import models.User;
+import play.i18n.Messages;
 import play.mvc.*;
 
 import java.util.List;
 
 public class Application extends Controller {
 
-    private static void checkTeacher(){
+    private static boolean checkTeacher(){
         checkUser();
 
         User u = (User) renderArgs.get("user");
-        if (!u.getType().equals(Constants.User.TEACHER)){
-            return;
+        if (u.getType().equals(Constants.User.TEACHER)){
+            return true;
         }
+        return false;
     }
 
     private static void checkUser(){
@@ -43,22 +45,33 @@ public class Application extends Controller {
 
 
     public static void removeStudent(String student) {
-        checkTeacher();
-
-        User.remove(student);
+        if(checkTeacher()){
+          User.remove(student);
+          index();
+        }
+        flash.put("error", Messages.get("Public.validation.wrong.teacher"));
         index();
     }
 
 
     public static void setMark(String student) {
-        User u = User.loadUser(student);
-        render(u);
+
+        if(checkTeacher()){
+          User u = User.loadUser(student);
+          render(u);
+        }
+        flash.put("error", Messages.get("Public.validation.wrong.teacher"));
+        index();
     }
 
     public static void doSetMark(String student, Integer mark) {
-        User u = User.loadUser(student);
-        u.setMark(mark);
-        u.save();
+        if(checkTeacher()){
+          User u = User.loadUser(student);
+          u.setMark(mark);
+          u.save();
+          index();
+        }
+        flash.put("error", Messages.get("Public.validation.wrong.teacher"));
         index();
     }
 }

@@ -1,5 +1,10 @@
 #{extends 'main2.html' /}
 #{set title:'Home' /}
+#{if flash.error}
+    <p class="error">
+        &{flash.error}
+    </p>
+#{/if}
 
 <br>
 Hello ${u.getUsername()}
