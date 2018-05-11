@@ -1,19 +1,48 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Not found 404</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=${_response_encoding}"/>
+    <meta name="MobileOptimized" content="320">
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/plugins/bootstrap/css/bootstrap.min.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/plugins/font-awesome/css/font-awesome.min.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/plugins/bootstrap-select/dist/css/bootstrap-select.min.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/module.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/font.css'}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/basic.css'}" />
 
-<html>
-    <head>
-        <title>Not found</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=${_response_encoding}"/>    
-    </head>
-    <body>
-        #{if play.mode.name() == 'DEV'}
-            #{404 result /}
-        #{/if}
-        #{else}
-            <h1>Not found</h1>
-            <p>
-                ${result.message}
-            </p>
-        #{/else}
-    </body>
+</head>
+<body class="login-bg">
+
+<div class="login">
+    <div class="logo">
+        <img src="@{'/public/images/logo.png'}" alt="CampusCiberseguridad" />
+    </div>
+    <div class="content more-width">
+        <div id="login">
+          #{if play.mode.name() == 'DEV'}
+              #{404 result /}
+          #{/if}
+          #{else}
+              <h1>Error 404 - Page not found</h1>
+              <h3>${result.message}</h3>
+              <img src="@{'/public/images/error404.jpg'}" width="782" height="246" alt="" class="img-responsive">
+              <h6><small>Foto extraida desde el error de pagian de <a href="http://dilbert.com/" target="_blank">http://dilbert.com/</a>. Toda los derechos pertenecen a Dilbert. Esta págian es sola válida como humarada para el Maser de Ciberseguridad.</small></h6>
+          #{/else}
+        </div>
+    </div>
+    <div class="copyright">
+        ${Calendar.getInstance().get(Calendar.YEAR)} © <a href="https://www.campusciberseguridad.com/">Campus Ciberseguridad</a>. All Rights Reserved.
+    </div>
+</div>
+
+<script type="text/javascript" src="@{'/public/javascripts/jquery-3.1.1.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/plugins/bootstrap/js/bootstrap.min.js'}"></script>
+<script type="text/javascript" src="@{'/public/plugins/bootstrap-select/js/bootstrap-select.js'}"></script>
+
+
+
+#{get 'moreScripts'/}
+
+</body>
 </html>
